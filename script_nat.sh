@@ -97,6 +97,7 @@ echo -e "Configure router to enable NAT and IP Masquerading...\n"
 ip netns exec router sysctl -w net.ipv4.ip_forward=1
 ip netns exec router iptables -t nat -A POSTROUTING -o veth-public -j MASQUERADE    
 
+
 echo -e "\nSetting a default route (gateway) for clients\n"
 
 sudo ip netns exec client1 ip route add default via 192.168.10.1
