@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#exit witch no zero status
+# exit witch no zero status
 set -e
 
 
@@ -81,8 +81,8 @@ ip link add veth-public type veth peer name veth-internet
 ip link set veth-public netns router
 
 # #  Connect veth-internet to bridge
-# ip link set veth-internet master bri0
-# ip link set veth-internet up
+ip link set veth-internet master bri0
+ip link set veth-internet up
 
 # Connect the public network to the router
 ip netns exec router ip addr add 203.0.113.2/24 dev veth-public
@@ -104,7 +104,10 @@ sudo ip netns exec client1 ip route add default via 192.168.10.1
 sudo ip netns exec client2 ip route add default via 192.168.11.1
 sudo ip netns exec client3 ip route add default via 192.168.12.1
 
+ip netns exec router ip route add default via 203.0.113.1
 
+
+#############################################################################################################
 
 echo "Testing connectivity from multiple clients in parallel..."
 
@@ -116,3 +119,28 @@ sudo ip netns exec client3 ping -c 5 203.0.113.1 | sed 's/^/[Client3] /' &
 wait
 
 echo "Ping tests completed."
+#################################################################
+
+
+# Bonus task 1
+
+
+# echo -e "Hosting a simple webserver using python on client1 "
+ip netns exec client1 python3 -m http.server 80 &
+
+
+# echo -e "\nEnabling port forwrding ..."
+ip netns exec router iptables -t nat -A PREROUTING -i veth-public -p  tcp --dport 80 -j DNAT --to-destination 192.168.10.2:80
+
+#Forward the traffic via the router
+ip netns exec router iptables -A FORWARD -p tcp -d 192.168.10.2 --dport 80 -j ACCEPT &
+
+# # Bonus Task 2
+
+echo -e "\nAllowing only http and https traffic"
+ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 80 -j ACCEPT
+ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 443 -j ACCEPT
+ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -j DROP
+
+wait
+
