@@ -99,6 +99,10 @@ Ensure that your Linux environment has the following tools installed:
    ```bash
    sudo ./nat_setup.sh
    ```
+
+<img src="https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view?usp=sharing" alt="My Image" width="500"/>
+
+
 ![Alt text](https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view?usp=sharing)
 
 
