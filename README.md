@@ -101,7 +101,7 @@ Ensure that your Linux environment has the following tools installed:
    ```
 
 <img src="https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view" alt="My Image" width="500"/>
-
+![Screenshot 2023-08-12 164211](https://github.com/Sanketsb17/Cache-management-using-splay-trees/assets/112432663/15729165-3482-4354-a92f-b15fe4438574)
 
 ![Alt text](https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view?usp=sharing)
 
