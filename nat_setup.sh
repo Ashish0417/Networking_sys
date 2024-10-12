@@ -135,9 +135,9 @@ ip netns exec router iptables -t nat -A PREROUTING -i veth-public -p  tcp --dpor
 #Forward the traffic via the router
 ip netns exec router iptables -A FORWARD -p tcp -d 192.168.10.2 --dport 80 -j ACCEPT &
 
-# # Bonus Task 2
+# Bonus Task 2
 
-# echo -e "\nAllowing only http and https traffic"
+echo -e "\nAllowing only http and https traffic"
 # ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 80 -j ACCEPT
 # ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 443 -j ACCEPT
 # ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -j DROP
@@ -146,7 +146,7 @@ ip netns exec router iptables -A FORWARD -p tcp -d 192.168.10.2 --dport 80 -j AC
 ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 80 -j ACCEPT
 ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 443 -j ACCEPT
 
-# Allow forwarded traffic from client1's subnet to be returned to the public interface
+# # Allow forwarded traffic from client1's subnet to be returned to the public interface
 ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 80 -j ACCEPT
 ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 443 -j ACCEPT
 
