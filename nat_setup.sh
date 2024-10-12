@@ -151,8 +151,8 @@ ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/2
 ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 443 -j ACCEPT
 
 # Block all other traffic
-ip netns exec router iptables -A FORWARD -j DROP
+# ip netns exec router iptables -A FORWARD -j DROP
 
 
-wait
+# wait
 
