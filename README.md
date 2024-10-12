@@ -105,3 +105,8 @@ Ensure that your Linux environment has the following tools installed:
  ![basic_nat](https://drive.google.com/uc?export=view&id=1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS)
 ### After execution of switch_client.sh
  ![basic_switch_nat](https://drive.google.com/uc?export=view&id=1_zGIA62AJkHJBaUYm3B_enCxRkQhRjFK)
+
+**Note** 📌:
+
+Run switch_client.sh only after executing nat_setup.sh
+(Its an extra task)
