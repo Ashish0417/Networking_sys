@@ -101,7 +101,5 @@ Ensure that your Linux environment has the following tools installed:
    ```
 
 ## Results
- ![Screenshot 2023-08-12 164211](https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view)
-
-
-
+ ![basic_nat](https://drive.google.com/uc?export=view&id=1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS)
+ ![basic_switch_nat](https://drive.google.com/uc?export=view&id=1_zGIA62AJkHJBaUYm3B_enCxRkQhRjFK)
