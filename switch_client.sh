@@ -53,5 +53,24 @@ ip netns exec client5 ip route add default via 192.168.13.1
 ip netns exec client6 ip route add default via 192.168.13.1
 
 
+########################################################
+echo -e "Running apache server on client5"
+## ensure apache is intalled 
+## if not, comment out the following line 
+#apt install apache2   
+
+ip netns exec client5 apache2ctl -D FOREGROUND &
+
+ip netns exec router iptables -t nat -A PREROUTING -i veth-public -p tcp --dport 443 -j DNAT --to-destination 192.168.13.3:80
+ip netns exec router iptables -A FORWARD -p tcp -d 192.168.13.3 --dport 80 -j ACCEPT
+
+## if this is not opening close the previous browser and try again
+xdg-open http://203.0.113.2:443
+wait
+
+
+
+
+
 
 
