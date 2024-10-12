@@ -100,20 +100,8 @@ Ensure that your Linux environment has the following tools installed:
    sudo ./nat_setup.sh
    ```
 
-## Single threaded environmenmnt results
- ![Screenshot 2023-08-12 164211](https://github.com/Sanketsb17/Cache-management-using-splay-trees/assets/112432663/15729165-3482-4354-a92f-b15fe4438574)
-
-- 1)Creating Cache of size 3.
-- 2)Added 3 key-value pairs in Cache and Printed them all.
-- 3)Now after adding 4th entry in Cache least recently added/accessed entry got evicted and 4th entry took it's place.
-
- ![Screenshot 2023-08-12 164429](https://github.com/Sanketsb17/Cache-management-using-splay-trees/assets/112432663/08df7229-87b3-4607-bd3a-0cb74ecee8b5)
-
-- 4)Now if we add new entry in Cache our second added entry should get evicted since it is least recently added/accessed entry.
-- 5)We will access second entry so that it will become recently accessed entry.
-- 6)After accessing it Adding new entry in Cache.
-- 7)Now printing Cache again.
-- 8)least recently accessed entry got evicted and recently accessed entry in still there.
+## Results
+ ![Screenshot 2023-08-12 164211](https://drive.google.com/file/d/1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS/view)
 
 
 
