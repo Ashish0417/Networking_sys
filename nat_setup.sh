@@ -146,13 +146,20 @@ echo -e "\nAllowing only http and https traffic"
 ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 80 -j ACCEPT
 ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 443 -j ACCEPT
 
-# # Allow forwarded traffic from client1's subnet to be returned to the public interface
+# Allow forwarded traffic from client1's subnet to be returned to the public interface
 ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 80 -j ACCEPT
 ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 443 -j ACCEPT
 
-# Block all other traffic
-# ip netns exec router iptables -A FORWARD -j DROP
+# To check conectivity via ping 
+ip netns exec router iptables -A FORWARD -p icmp -j ACCEPT
+
+# # Block all other traffic
+ip netns exec router iptables -A FORWARD -j DROP
 
 
-# wait
+# Connecting to python web server via browzer(ensure xdg is installed)
+xdg-open http://203.0.113.2
+
+
+wait
 
