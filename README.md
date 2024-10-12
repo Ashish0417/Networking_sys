@@ -101,5 +101,7 @@ Ensure that your Linux environment has the following tools installed:
    ```
 
 ## Results
+### After execution of nat_setup.sh
  ![basic_nat](https://drive.google.com/uc?export=view&id=1qbfd0ThUkrUMCWo11zOJ9nCUlCrzk-jS)
+### After execution of switch_client.sh
  ![basic_switch_nat](https://drive.google.com/uc?export=view&id=1_zGIA62AJkHJBaUYm3B_enCxRkQhRjFK)
