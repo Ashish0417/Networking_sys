@@ -125,11 +125,11 @@ echo "Ping tests completed."
 # Bonus task 1
 
 
-# echo -e "Hosting a simple webserver using python on client1 "
+echo -e "Hosting a simple webserver using python on client1 "
 ip netns exec client1 python3 -m http.server 80 &
 
 
-# echo -e "\nEnabling port forwrding ..."
+echo -e "\nEnabling port forwrding ..."
 ip netns exec router iptables -t nat -A PREROUTING -i veth-public -p  tcp --dport 80 -j DNAT --to-destination 192.168.10.2:80
 
 #Forward the traffic via the router
@@ -137,10 +137,22 @@ ip netns exec router iptables -A FORWARD -p tcp -d 192.168.10.2 --dport 80 -j AC
 
 # # Bonus Task 2
 
-echo -e "\nAllowing only http and https traffic"
-ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 80 -j ACCEPT
-ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 443 -j ACCEPT
-ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -j DROP
+# echo -e "\nAllowing only http and https traffic"
+# ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 80 -j ACCEPT
+# ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -p tcp --dport 443 -j ACCEPT
+# ip netns exec router iptables -A FORWARD -s 192.168.10.0/24 -j DROP
+
+# Allow incoming HTTP and HTTPS traffic from the public interface (veth-public) to the router
+ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 80 -j ACCEPT
+ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 443 -j ACCEPT
+
+# Allow forwarded traffic from client1's subnet to be returned to the public interface
+ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 80 -j ACCEPT
+ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 443 -j ACCEPT
+
+# Block all other traffic
+ip netns exec router iptables -A FORWARD -j DROP
+
 
 wait
 
