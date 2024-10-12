@@ -41,33 +41,6 @@ As an additional task, we configured port forwarding on the router to forward ex
 To achieve this, we used iptables to filter outbound traffic from the LAN network (192.168.10.0/24) and allowed only connections on ports 80 (HTTP) and 443 (HTTPS). All other outgoing traffic was explicitly blocked.
 
 This setup successfully limited LAN users to web-based connections only, enhancing network security while maintaining essential functionality.
-### 2. --------
-After setting up multiple network namespaces (client1, client2, client3, and a router) and configuring the network interfaces, I hosted a simple HTTP server using Python on client1. Initially, I configured the necessary iptables rules to allow incoming traffic on port 80, which facilitated access to the web server from external sources.
-
-However, when I implemented additional firewall rules to restrict traffic solely to HTTP (port 80) and HTTPS (port 443), I lost access to the web server. Both curl and browser requests to the server returned connection errors, indicating that the traffic was being blocked.
-
-- #### **Problem with the Original Rules**
-   **Broad Drop Rule** : The drop rule (-j DROP) at the end of your original set of rules was too broad. It applied to all traffic originating from the 192.168.10.0/24 subnet that wasn't explicitly allowed by the previous rules. This means that even if the requests for HTTP (port 80) or HTTPS (port 443) were allowed, if any traffic matched the drop rule, it would block the connection
-
-- ### **Explanation of Your Solution**
-    **1. Allowing Incoming Traffic:**
-
-    The new rules for veth-public allow incoming HTTP and HTTPS traffic specifically from the public interface to the router. This means that any incoming requests on ports 80 and 443 are explicitly permitted:
-
-    ```bash
-    ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 80 -j ACCEPT
-    ip netns exec router iptables -A FORWARD -i veth-public -p tcp --dport 443 -j ACCEPT
-    ```
-    **2. Allowing Returned Traffic:**
-
-    The subsequent rules allow the responses from client1 (which hosted the web server) to be sent back through the router to the public interface. This is crucial for enabling the two-way communication necessary for a functioning web server:
-    ```bash
-    ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 80 -j ACCEPT
-    ip netns exec router iptables -A FORWARD -o veth-public -p tcp -s 192.168.10.0/24 --sport 443 -j ACCEPT
-    ```
-    **3. Removing the Broad Drop Rule:**
-
-    By commenting out the original broad drop rule (-j DROP), you eliminated the risk of inadvertently blocking valid HTTP and HTTPS traffic. The router now allows incoming traffic specifically for these ports and can send responses back to the clients without being blocked.
 
 ## Challenges Faced
 ### 1. Accessing the Website Hosted in a Network Namespace:
