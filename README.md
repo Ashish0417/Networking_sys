@@ -110,3 +110,7 @@ Ensure that your Linux environment has the following tools installed:
 
 Run switch_client.sh only after executing nat_setup.sh
 (Its an extra task)
+
+## Refrences 
+https://radagast.ca/linux/nat_and_ip_masquerade.pdf
+https://blogs.igalia.com/dpino/2016/04/10/network-namespaces/
